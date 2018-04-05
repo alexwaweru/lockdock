@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Doclock</title>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="home.css">
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+
+            <!-- Dashboard navigation and Logo-->
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                <div class="logo">
+                    <a hef="home.html"><img src="img/logo.png" alt="merkery_logo" class="hidden-xs hidden-sm"></a>
+                </div>
+                <div class="navi">
+                    <ul>
+                        <li class="active"><a href="home.html"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">  Home</span></a></li>
+                        <li><a href="#" id="btnDocuments"><i class="fa fa-file" aria-hidden="true"></i><span class="hidden-xs hidden-sm">  Add Document</span></a></li>
+                        <li><a href="#" id="btnPasswords"><i class="fa fa-unlock" aria-hidden="true"></i><span class="hidden-xs hidden-sm">  Add Password</span></a></li>
+                        <li><a href="#" id="btnImages"><i class="fa fa-image" aria-hidden="true"></i><span class="hidden-xs hidden-sm">  Add Image</span></a></li>
+                        <li><a href="#" id="btnCards"><i class="fas fa-id-card" aria-hidden="true"></i><span class="hidden-xs hidden-sm">  Add Card</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-10 col-sm-11 display-table-cell v-align">
+
+                <!-- Header, User and Search panel -->
+                <div class="row">
+                    <header>
+                        <div class="col-md-7">
+                            <nav class="navbar-default pull-left">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="offcanvas" data-target="#side-menu" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                            </nav>
+                            <div class="search ">
+                                <input type="text" placeholder="Search" id="search">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="header-rightside">
+                                <ul class="list-inline header-top pull-right">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/img/logo.png" alt="user"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <div class="navbar-content">
+                                                    <span id="username">Account</span>
+                                                    <p id="email" class="text-muted small">
+                                                        email@gmail.com
+                                                    </p>
+                                                    <div class="divider">
+                                                    </div>
+                                                    <a href="#" id="btnLogout" class="view btn-sm active">Logout</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+
+                <!-- The dashboard that is toggled-->
+                <div id="dashboard" class="user-dashboard">
+                    <!-- card #1 -->
+                    <div class="row">
+
+                        <div class="col-sm-3" style="align-items: center;">
+                            <div class="card text-white bg-secondary mb-3" style="width: 20rem; height: 20rem;">
+                                <div class="card-body">
+                                    <div style="padding-bottom: 5rem;"></div>
+                                    <i class="fas fa-plus-circle fa-5x"></i>
+                                    <div>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#passModal" style="margin-top: 2rem;">Password</button>
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#docModal" style="margin-top: 2rem;">Document</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Main javascript file -->
+    <script src="home.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</body>
+
+</html>
